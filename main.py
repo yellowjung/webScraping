@@ -1,23 +1,10 @@
 from requests import get
 
-results = {}
+base_url = "https://weworkremotely.com/remote-jobs/search?term="
+search_term = "python"
 
-websites = (
-    "google.com",
-    "airbnb.com",
-    "https://twitter.com",
-    "facebook.com",
-    "https://tiktok.com/"
-)
-
-for website in websites:
-    if not website.startswith("https://"):
-        website = f"https://{website}"
-    response = get(website)
-    if response.status_code == 200:
-        results[website] = "OK"
-    else:
-        results[website] = "FAILED"
-        
-
-print(results)
+response = get(f"{base_url}{search_term}")
+if response.status_code != 200:
+    print("Can't request website")
+else:
+    print(response.text)
